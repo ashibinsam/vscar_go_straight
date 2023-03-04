@@ -7,7 +7,7 @@ AF_DCMotor motor1(1);
 AF_DCMotor motor2(2);
 AF_DCMotor motor3(3);
 AF_DCMotor motor4(4);
-
+int dataArr[5]={0,0,0,0,0};
 int highspeed=255;
   int lowspeed=150;
   int mySpeed = 2;   // speed
@@ -48,10 +48,11 @@ void setup() {
 }
 
 void loop() {
+  receiveData();
   t1 = millis(); //The millis function returns the number of milliseconds since Arduino board has been powered up.
   t2 = t1;
   mySpeed=100;
-  while (abs(t2 - t1)< 2500) {
+  while (abs(t2 - t1)< 1500) {
     //driveStraight();
   accel(10,255);  //go forward
   t2 = millis();
@@ -77,22 +78,22 @@ void loop() {
   }
 
   // yawOld = yaw;
-  t1 = millis(); 
-  t2 = t1;
-  tSpeed = 0;
-  while (abs(t2 - t1) < 1500) {
-    //driveStraight;
-    right(255,250,10);  //go back -inverse
-    t2 = millis();
-  }
+  // t1 = millis(); 
+  // t2 = t1;
+  // tSpeed = 0;
+  // while (abs(t2 - t1) < 1500) {
+  //   //driveStraight;
+  //   right(255,250,10);  //go back -inverse
+  //   t2 = millis();
+  // }
   
   t1 = millis(); //The millis function returns the number of milliseconds since Arduino board has been powered up.
   t2 = t1;
   yawOld = yaw; 
-  while (abs(t2 - t1)< 2500) {
+  while (abs(t2 - t1)< 1500) {
     
     //driveStraight();
-    accel(10,100);  //go forward
+    accel(50,70);  //go forward
     t2 = millis();
     }
     Serial.print("   ***   Yaw:");
@@ -107,37 +108,37 @@ void loop() {
 
   t1 = millis(); 
   t2 = t1;
-  while (abs(t2 - t1) < 2500) {
+  while (abs(t2 - t1) < 1500) {
     halt();
     t2 = millis();
   } 
 
 
       
-  t1 = millis(); 
-  t2 = t1;
-  mySpeed=100;
-  while (abs(t2 - t1) < 2500) {
-    //driveStraight;
-    accelRev(10,255);  //go back -inverse
-    t2 = millis();
-  }
+  // t1 = millis(); 
+  // t2 = t1;
+  // mySpeed=100;
+  // while (abs(t2 - t1) < 2500) {
+  //   //driveStraight;
+  //   accelRev(10,255);  //go back -inverse
+  //   t2 = millis();
+  // }
 
-  t1 = millis(); 
-  t2 = t1;
+  // t1 = millis(); 
+  // t2 = t1;
   
-  while (abs(t2 - t1) < 2500) {
-    //driveStraight;
-    accelRev(10,30);   //go back -inverse
-    t2 = millis();
-  }
+  // while (abs(t2 - t1) < 2500) {
+  //   //driveStraight;
+  //   accelRev(10,30);   //go back -inverse
+  //   t2 = millis();
+  // }
 
-  t1 = millis(); 
-  t2 = t1;
-  while (abs(t2 - t1) < 2500) {
-    halt();
-    t2 = millis();
-  }
+  // t1 = millis(); 
+  // t2 = t1;
+  // while (abs(t2 - t1) < 2500) {
+  //   halt();
+  //   t2 = millis();
+  // }
 
 
 }

@@ -123,7 +123,7 @@ void left(int is_speed){
     motor4.setSpeed(is_speed);
     
 }
-void left(int is_speed, int turnSpeed, int rate){
+void right(int is_speed, int turnSpeed, int rate){
 
   motor3.run(FORWARD);
   motor4.run(FORWARD);
@@ -144,8 +144,8 @@ void left(int is_speed, int turnSpeed, int rate){
       if(turnSpeed ==255) {
         motor1.run(BACKWARD);
         motor2.run(BACKWARD);
-        motor1.setSpeed(mySpeed);
-        motor2.setSpeed(mySpeed);
+        motor1.setSpeed(mySpeed-tSpeed);
+        motor2.setSpeed(mySpeed-tSpeed);
 
       }
       else {
@@ -159,7 +159,7 @@ void left(int is_speed, int turnSpeed, int rate){
 
 }
 
-void right(int is_speed, int turnSpeed, int rate){
+void left(int is_speed, int turnSpeed, int rate){
 
   motor1.run(FORWARD);
   motor2.run(FORWARD);
@@ -256,3 +256,30 @@ void deAccelRev(int rate,  int minSpeed){
   RightForward, 
   RightBackward,
   */
+
+void receiveData() {
+  if (Serial.available() > 0) {
+    // Read the incoming serial data
+    String receivedData = Serial.readStringUntil('\n');
+
+    // Parse the string to extract the integer array
+    int commaIndex = 0;
+    int arrayIndex = 0;
+    while (commaIndex >= 0 && arrayIndex < 5) {
+      commaIndex = receivedData.indexOf(",");
+      if (commaIndex >= 0) {
+        String dataString = receivedData.substring(0, commaIndex);
+        receivedData = receivedData.substring(commaIndex + 1);
+        dataArr[arrayIndex] = dataString.toInt();
+        arrayIndex++;
+      }
+    }
+
+    // Print the received integer array
+    for(int i=0; i<5; i++) {
+      Serial.print(dataArr[i]);
+      Serial.print(" ");
+    }
+    Serial.println();
+  }
+}
