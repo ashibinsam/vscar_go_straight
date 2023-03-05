@@ -9,8 +9,8 @@ AF_DCMotor motor3(3);
 AF_DCMotor motor4(4);
 int dataArr[5]={0,0,0,0,0};
 int highspeed=255;
-  int lowspeed=150;
-  int mySpeed = 2;   // speed
+  int lowspeed=0;
+  int mySpeed = 100;   // speed
   int tSpeed;       //turn Speed
   
   int corrSpeedL;       //Left Motor
@@ -49,13 +49,11 @@ void setup() {
 
 void loop() {
   receiveData();
-  t1 = millis(); //The millis function returns the number of milliseconds since Arduino board has been powered up.
-  t2 = t1;
-  mySpeed=100;
-  while (abs(t2 - t1)< 1500) {
+  while (dataArr[0] == 1 && dataArr[1] == 0) {
     //driveStraight();
-  accel(10,255);  //go forward
-  t2 = millis();
+  accel(dataArr[3],dataArr[2]);  //go forward
+  receiveData();
+  printData();
   }
     
   Serial.print("   ***   Yaw:");
@@ -67,36 +65,27 @@ void loop() {
   Serial.println();
   //yawOld = yaw; 
    
-  t1 = millis(); 
-  t2 = t1;
+
   tSpeed = 0;
-  while (abs(t2 - t1) < 1500) {
+  while (dataArr[0] == 1 && dataArr[1] == -1) {
     //driveStraight;
     //go back -inverse
-    left(255,250,10);
-    t2 = millis();
+    left(dataArr[2],dataArr[4],dataArr[3]);
+    receiveData();
+    printData();
   }
 
   // yawOld = yaw;
-  // t1 = millis(); 
-  // t2 = t1;
-  // tSpeed = 0;
-  // while (abs(t2 - t1) < 1500) {
-  //   //driveStraight;
-  //   right(255,250,10);  //go back -inverse
-  //   t2 = millis();
-  // }
+
+  tSpeed = 0;
+  while (dataArr[0] == 1 && dataArr[1] == 1) {
+    //driveStraight;
+    right(dataArr[2],dataArr[4],dataArr[3]);  //go back -inverse
+    receiveData();
+    printData();
+  }
   
-  t1 = millis(); //The millis function returns the number of milliseconds since Arduino board has been powered up.
-  t2 = t1;
-  yawOld = yaw; 
-  while (abs(t2 - t1)< 1500) {
-    
-    //driveStraight();
-    accel(50,70);  //go forward
-    t2 = millis();
-    }
-    Serial.print("   ***   Yaw:");
+  Serial.print("   ***   Yaw:");
   Serial.println(yaw);
   Serial.print("Forward: Speed L ");
   Serial.print(corrSpeedL);
@@ -105,12 +94,10 @@ void loop() {
   Serial.println();
   yawOld = yaw;  
     
-
-  t1 = millis(); 
-  t2 = t1;
-  while (abs(t2 - t1) < 1500) {
+  while (dataArr[0] == 0) {
     halt();
-    t2 = millis();
+    receiveData();
+    printData();
   } 
 
 

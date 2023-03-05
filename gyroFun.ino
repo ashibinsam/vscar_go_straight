@@ -144,8 +144,8 @@ void right(int is_speed, int turnSpeed, int rate){
       if(turnSpeed ==255) {
         motor1.run(BACKWARD);
         motor2.run(BACKWARD);
-        motor1.setSpeed(mySpeed-tSpeed);
-        motor2.setSpeed(mySpeed-tSpeed);
+        motor1.setSpeed(mySpeed);
+        motor2.setSpeed(mySpeed);
 
       }
       else {
@@ -177,7 +177,7 @@ void left(int is_speed, int turnSpeed, int rate){
       onTime5 = millis(); 
       motor1.setSpeed(mySpeed);
       motor2.setSpeed(mySpeed);
-      if(turnSpeed ==255) {
+      if(turnSpeed == 255) {
         motor3.run(BACKWARD);
         motor4.run(BACKWARD);
         motor3.setSpeed(mySpeed);
@@ -282,4 +282,14 @@ void receiveData() {
     }
     Serial.println();
   }
+}
+
+void printData() {
+  Serial.print("   ***   Yaw:");
+  Serial.println(yaw);
+  Serial.print("Forward: Speed L ");
+  Serial.print(corrSpeedL);
+  Serial.print("   |   Speed R:");
+  Serial.println(corrSpeedR);  
+  Serial.println();
 }
