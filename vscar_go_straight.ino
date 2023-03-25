@@ -52,27 +52,28 @@ void loop() {
   while (dataArr[0] == 1 && dataArr[1] == 0) {
     //driveStraight();
   accel(dataArr[3],dataArr[2]);  //go forward
+  Serial.println("Forward");
   receiveData();
-  printData();
+  // printData();
   }
     
-  Serial.print("   ***   Yaw:");
-  Serial.println(yaw);
-  Serial.print("Forward: Speed L ");
-  Serial.print(corrSpeedL);
-  Serial.print("   |   Speed R:");
-  Serial.println(corrSpeedR);  
-  Serial.println();
+  // Serial.print("   ***   Yaw:");
+  // Serial.println(yaw);
+  // Serial.print("Forward: Speed L ");
+  // Serial.print(corrSpeedL);
+  // Serial.print("   |   Speed R:");
+  // Serial.println(corrSpeedR);  
+  // Serial.println();
   //yawOld = yaw; 
    
 
   tSpeed = 0;
   while (dataArr[0] == 1 && dataArr[1] == -1) {
-    //driveStraight;
-    //go back -inverse
+    //left
     left(dataArr[2],dataArr[4],dataArr[3]);
+    Serial.println("Left");
     receiveData();
-    printData();
+    // printData();
   }
 
   // yawOld = yaw;
@@ -80,36 +81,36 @@ void loop() {
   tSpeed = 0;
   while (dataArr[0] == 1 && dataArr[1] == 1) {
     //driveStraight;
-    right(dataArr[2],dataArr[4],dataArr[3]);  //go back -inverse
+    right(dataArr[2],dataArr[4],dataArr[3]);  //right
+    Serial.println("Right");
     receiveData();
-    printData();
+    // printData();
   }
   
-  Serial.print("   ***   Yaw:");
-  Serial.println(yaw);
-  Serial.print("Forward: Speed L ");
-  Serial.print(corrSpeedL);
-  Serial.print("   |   Speed R:");
-  Serial.println(corrSpeedR);  
-  Serial.println();
+  // Serial.print("   ***   Yaw:");
+  // Serial.println(yaw);
+  // Serial.print("Forward: Speed L ");
+  // Serial.print(corrSpeedL);
+  // Serial.print("   |   Speed R:");
+  // Serial.println(corrSpeedR);  
+  // Serial.println();
   yawOld = yaw;  
     
   while (dataArr[0] == 0) {
     halt();
     receiveData();
-    printData();
+    // printData();
+    Serial.println("Stop");
   } 
 
 
       
-  // t1 = millis(); 
-  // t2 = t1;
-  // mySpeed=100;
-  // while (abs(t2 - t1) < 2500) {
-  //   //driveStraight;
-  //   accelRev(10,255);  //go back -inverse
-  //   t2 = millis();
-  // }
+  t1 = millis(); 
+  
+  while (abs(t2 - t1) > 2000) {
+    t2 = t1;
+    printData();
+  }
 
   // t1 = millis(); 
   // t2 = t1;

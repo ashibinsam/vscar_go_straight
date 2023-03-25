@@ -287,9 +287,9 @@ void receiveData() {
 void printData() {
   Serial.print("   ***   Yaw:");
   Serial.println(yaw);
-  Serial.print("Forward: Speed L ");
+  Serial.print("Forward: Speed L:");
   Serial.print(corrSpeedL);
-  Serial.print("   |   Speed R:");
+  Serial.print("Forward: Speed R:");
   Serial.println(corrSpeedR);  
   Serial.println();
 }
